@@ -1,3 +1,4 @@
+# Define the makeCacheMatrix function
 makeCacheMatrix <- function(x = matrix(sample(1:100,9),3,3)) {
   s <- NULL
   set <- function(y) {
@@ -12,10 +13,11 @@ makeCacheMatrix <- function(x = matrix(sample(1:100,9),3,3)) {
        getsolve = getsolve)
 }
 
+# Define the cacheSolve function
 cacheSolve <- function(x, ...) {
   s <- x$getsolve()
   if(!is.null(s)) {
-    message("getting inversed matrix")
+    message("Getting inverted matrix from cache")
     return(s)
   }
   data <- x$get()
@@ -23,3 +25,23 @@ cacheSolve <- function(x, ...) {
   x$setsolve(s)
   s
 }
+
+# Create a matrix
+my_matrix <- matrix(c(1, 2, 3, 4, 5, 6, 7, 8, 9), 3, 3)
+
+# Create a cache for the matrix
+my_matrix_cache <- makeCacheMatrix(my_matrix)
+
+# Perform matrix inversion using the cache
+inverted_matrix <- cacheSolve(my_matrix_cache)
+
+# Retrieve the inverted matrix from cache
+inverted_matrix_cached <- cacheSolve(my_matrix_cache)
+
+# Print the inverted matrix
+cat("Inverted Matrix:\n")
+print(inverted_matrix)
+
+# Print the inverted matrix retrieved from cache
+cat("\nInverted Matrix Retrieved from Cache:\n")
+print(inverted_matrix_cached)
